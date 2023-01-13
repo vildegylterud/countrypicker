@@ -1,54 +1,63 @@
 <template>
   <div class="container">
-  <div class="flex-child selected-countries">
+  <div class="flex-child">
     <p>Valgte land:</p>
-      <li v-for="countries in selected_country" :key="countries">
-        {{ countries }}
+      <li v-for="country in selected_country" :key="country">
+        {{ country.name.common }}
       </li>
   </div>
-
-  <div id="checkboxes" class="flex-child countries">
+  <div id="checkboxes" class="flex-child">
+    <div>
+      <label v-for="region in regions" :key="region" >
+      {{region}}
+        <input id="input-box" type="checkbox" multiple value="region"/>
+      </label>
+    </div>
+    <div class="select">
+      <p>Velg land:</p>
     <select v-model="selected_country" multiple class="form-control select-checkbox">
-    <option>-----Velg et land-----</option>
-      <optgroup v-for="region in regions" :label="region" :key="region.id">
-    <option v-for="country in countries" :key="country" :value="country">  {{ country.name.common }} </option>
-      </optgroup>
+      <option id="all-countries" value="">Velg alle landene i Europa</option>
+    <option v-for="country in all_countries" :key="country" :value="country">  {{ country.name.common }} </option>
     </select>
+  </div>
   </div>
   </div>
 </template>
 
 <script>
+
 import axios from "axios";
 
 export default {
   data() {
     return {
-      countries: null,
-      regions: ["Europe", "America"],
-      selected_country: [],
+      all_countries: null,
+      regions: ["Europe", "America", "Asia", "Americas", "Oceania", "Africa"],
+      selected_country: null,
+      selected_region: null,
     }
   },
   name: "CountryPicker",
-  methods: {
-  },
   async mounted() {
     await axios
         .get("https://restcountries.com/v3.1/all")
-        .then(response => (this.countries = response.data))
+        .then(response => (this.all_countries = response.data))
   },
 }
 </script>
 
 <style scoped>
 
+#all-countries {
+  font-weight: bold;
+}
 .select-checkbox {
-  size: 200px;
+  height: 520px;
 }
 .select-checkbox option::before {
   content: "\2610";
   width: 1.3em;
-  text-align: center;
+  text-align: left;
   display: inline-block;
 }
 .select-checkbox option:checked::before {
@@ -58,8 +67,19 @@ export default {
 h3 {
   margin: 40px 0 0;
 }
+.select {
+  display: grid;
+  margin-top: 40px;
+}
+
+.select:first-child {
+  margin-right: 20px;
+}
 .flex-child {
   flex: 1;
+  margin-top: 40px;
+  text-align: center;
+  margin-right: 50px;
 }
 
 .flex-child:first-child {
@@ -69,14 +89,12 @@ h3 {
   display: flex;
 }
 
-#checkboxes input {
-  display: inline-block;
-  margin-top: 10px;
+#checkboxes {
+  margin-top: 50px;
 }
 
-#checkboxes label {
-  display: inline-block;
-  margin-top: 10px;
+.select {
+  text-align: left;
+  font-weight: bold;
 }
-
 </style>
