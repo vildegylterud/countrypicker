@@ -1,15 +1,15 @@
 <template>
   <h2>Bouvet - teknisk test</h2>
-  <CountryPickerComponent/>
+  <CountryPicker/>
 </template>
 
 <script>
-import CountryPickerComponent from './components/CountryPickerComponent.vue'
+import CountryPicker from './components/CountryPicker.vue'
 
 export default {
   name: 'App',
   components: {
-    CountryPickerComponent
+    CountryPicker
   }
 }
 </script>
