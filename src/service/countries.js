@@ -1,19 +1,20 @@
 import axios from "axios";
-import {REGION_URL} from "@/service/urls"
+import {All_COUNTRIES_URL, COUNTRIES_BY_REGION_URL} from "@/service/urls"
 
 
-export async function getCountries() {
+export async function getAllCountries() {
     await axios
-        .get(REGION_URL)
+        .get(All_COUNTRIES_URL)
         .then(response => (this.countries = response.data))
 }
 
 
-// Get-call for get listing by id
+// Get-call for get countries in a specific region
 export async function getCountryByRegion(region) {
     return axios
-        .get(REGION_URL + `/${region}`)
+        .get(COUNTRIES_BY_REGION_URL + `/${region}`)
         .then((response) => {
+            console.log(response.data)
             return response.data
         })
         .catch((error) => {

@@ -1,0 +1,50 @@
+
+#all-countries {
+    font-weight: bold;
+}
+.select-checkbox {
+    height: 500px;
+}
+.select-checkbox option::before {
+    content: "\2610";
+    width: 1.3em;
+    text-align: left;
+    display: inline-block;
+}
+.select-checkbox option:checked::before {
+    content: "\2611";
+}
+
+h3 {
+    margin: 40px 0 0;
+}
+.select {
+    display: grid;
+    margin-top: 40px;
+}
+
+.select:first-child {
+    margin-right: 20px;
+}
+.flex-child {
+    flex: 1;
+    margin-top: 40px;
+    text-align: center;
+    margin-right: 50px;
+}
+
+.flex-child:first-child {
+    margin-right: 20px;
+}
+.container {
+    display: flex;
+}
+
+#checkboxes {
+    margin-top: 50px;
+}
+
+.select {
+    text-align: left;
+    font-weight: bold;
+}
