@@ -17,10 +17,11 @@
       </select>
     </div>
     <div class="select">
-      <p>Velg land:</p>
+      <label>Velg land:</label>
     <select v-model="selected_country" multiple class="form-control select-checkbox">
-      <option id="all-countries" value="">Velg alle landene i {{ selected_region }}</option>
-    <option v-for="country in getCountryByRegion(selected_region)" :key="country" :value="country">  {{ country }} </option>
+      <optgroup @click="selectAllCountriesInRegion(region)" v-for="region in regions" :key="region" :label="region">
+        <option v-for="country in getCountryByRegion(region)" :key="country" :value="country">  {{ country.name.common }} </option>
+      </optgroup>
     </select>
   </div>
   </div>
@@ -56,6 +57,11 @@ export default {
                 });
               }
             });
+    },
+    selectAllCountriesInRegion(region) {
+      let all_regions = getCountryByRegion(region)
+      console.log(all_regions)
+      return all_regions
     },
        async getCountryByRegion(region) {
          await getCountryByRegion(region)
