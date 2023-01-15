@@ -24,9 +24,5 @@ Contains the Vue files representing the different views used in the application.
 Contains the component used in the application. Components are elements in the application that is reused multiple places in the application.
 * CountryPickerComponent
 
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
 ### Source Code
 The source code for frontend can be found [here](https://github.com/vildegylterud/countrypicker).<br>
