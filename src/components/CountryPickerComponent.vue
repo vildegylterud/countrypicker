@@ -9,11 +9,11 @@
 
   <div
       class="multiselect__selected"
-      v-for="(option,i) in formattedOptions"
+      v-for="(option,i) in this.formattedOptions"
       :key="i"
       v-show="option.checked"
   >
-    {{ option.name.common }}
+    {{ option }}
     <span class="multiselect__remove"
           @click="
           preventClose($event);
@@ -21,29 +21,17 @@
   </div>
 
   <div class="multiselect__options" v-show="focused" :style="{top: optionsTop}" @click="preventClose">
-    <div
-        class="multiselect__option"
-        :class="{ 'multiselect__option--checked': option.checked }"
-        v-for="(option,  i) in formattedOptions"
-        :key="i"
-        @click="handleOptionClickRegion(i)"
-    >
-      <div class="multiselect__checkbox"></div>
-      <div class="multiselect__text" >
-        {{ option.region }}
-      </div>
-    </div>
 
     <div
         class="multiselect__option"
         :class="{ 'multiselect__option--checked': option.checked }"
-        v-for="(option,  i) in formattedOptions"
+        v-for="(option,  i) in this.formattedOptions"
         :key="i"
         @click="handleOptionClick(i)"
     >
       <div class="multiselect__checkbox"></div>
       <div class="multiselect__text" >
-        {{ option.name.common }}
+        {{ option }}
       </div>
     </div>
   </div>
@@ -60,10 +48,13 @@ export default {
   },
   computed: {
     formattedOptions() {
-      let fo = this.options.map(option => {
+      let fo = this.options.map((option) => {
+
         //let checked = true; //når denne kjører så er det selected - hvorfor blir ikke den true under?
-        let checked = this.value.some( v => v === option.name.common); //TODO her står det egt option[this.valueProperty]
-        console.log(option.name.common)
+        let checked = this.modelValue.some( v => v === option);//TODO her står det egt option[this.valueProperty]
+
+        console.log(checked)
+        //console.log(option.name.common) // checked og option.name.common er samme verdi altså checked er ikke en boolean
         return { ...option, checked };
       });
       console.log(fo)
@@ -79,10 +70,10 @@ export default {
     },
     handleOptionClickRegion(i) {
       let clickedValue = this.options[i].region; //TODO: må kanskje endre denne til [this.valueProperty]
-      let newValue = [...this.value];
+      let newValue = [...this.modelValue];
 
-      console.log(clickedValue)
-      let existIndex = this.value.findIndex(v => v === clickedValue);
+      //console.log(clickedValue)
+      let existIndex = this.modelValue.findIndex(v => v === clickedValue);
 
       //if the country does not exist in the list with selected countries
       if (existIndex === -1) {
@@ -94,11 +85,10 @@ export default {
 
     },
     handleOptionClick(i) {
-      let clickedValue = this.options[i][this.valueProperty].common; //TODO: må kanskje endre denne til [this.valueProperty]
-      let newValue = [...this.value];
+      let clickedValue = this.options[i]; //TODO: må kanskje endre denne til [this.valueProperty]
+      let newValue = [...this.modelValue];
 
-      console.log(clickedValue)
-      let existIndex = this.value.findIndex( v => v === clickedValue);
+      let existIndex = this.modelValue.findIndex( v => v === clickedValue);
 
       //if the country does not exist in the list with selected countries
       if(existIndex === -1 ) {
@@ -106,7 +96,8 @@ export default {
       } else {
         newValue.splice(existIndex, 1)
       }
-      this.$emit("input", newValue)
+      console.log(newValue)
+      this.$emit("update:modelValue", newValue)
     }
   },
 
@@ -119,7 +110,7 @@ export default {
       type: Array,
       default: () => []
     },
-    value: {
+    modelValue: {
       default: () => []
     },
     placeholder: {
@@ -134,7 +125,8 @@ export default {
       type: String,
       default: "value",
     },
-  }
+  },
+  emits: ['update:modelValue'],
 
 }
 </script>

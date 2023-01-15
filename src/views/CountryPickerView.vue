@@ -5,8 +5,6 @@
       <strong>Selected a country:</strong>
     <country-picker-component
         :options="all_countries"
-        display-property="name"
-        value-property="name"
         v-model="selectedCountries"
     >
     </country-picker-component>
@@ -21,22 +19,22 @@
 
 <script>
 import CountryPickerComponent from "@/components/CountryPickerComponent";
-import axios from "axios";
+//import axios from "axios";
 export default {
   name: "CountryPickerView",
   components: {CountryPickerComponent},
   data() {
     return {
-      all_countries: [],
-      selectedCountries: ["Norge", "Danmark"],
+      all_countries: ["Norway", "Denmark"],
+      selectedCountries: ["Norway"],
       regions: ["Europe", "America", "Asia", "Americas", "Oceania", "Africa"],
     }
   },
-  async mounted() {
+  /**async beforeCreate() {
     await axios
         .get("https://restcountries.com/v3.1/all")
         .then(response => (this.all_countries = response.data))
-  },
+  },*/
 }
 </script>
 
