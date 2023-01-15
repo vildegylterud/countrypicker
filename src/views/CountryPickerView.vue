@@ -19,22 +19,23 @@
 
 <script>
 import CountryPickerComponent from "@/components/CountryPickerComponent";
+import axios from "axios";
 //import axios from "axios";
 export default {
   name: "CountryPickerView",
   components: {CountryPickerComponent},
   data() {
     return {
-      all_countries: ["Norway", "Denmark"],
-      selectedCountries: ["Norway"],
+      all_countries: [],
+      selectedCountries: [],
       regions: ["Europe", "America", "Asia", "Americas", "Oceania", "Africa"],
     }
   },
-  /**async beforeCreate() {
+  async beforeCreate() {
     await axios
         .get("https://restcountries.com/v3.1/all")
         .then(response => (this.all_countries = response.data))
-  },*/
+  },
 }
 </script>
 

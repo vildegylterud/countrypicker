@@ -12,6 +12,9 @@
     flex-wrap: wrap;
 }
 
+.options-group {
+    font-weight: bold;
+}
 .multiselect:focus {
     outline: none;
 }
