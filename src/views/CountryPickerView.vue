@@ -20,7 +20,7 @@
 <script>
 import CountryPickerComponent from "@/components/CountryPickerComponent";
 import axios from "axios";
-//import axios from "axios";
+
 export default {
   name: "CountryPickerView",
   components: {CountryPickerComponent},
@@ -28,7 +28,6 @@ export default {
     return {
       all_countries: [],
       selectedCountries: [],
-      regions: ["Europe", "America", "Asia", "Americas", "Oceania", "Africa"],
     }
   },
   async beforeCreate() {
@@ -61,7 +60,5 @@ export default {
   text-align: left;
   margin-top: 5px;
 }
-
-
 
 </style>

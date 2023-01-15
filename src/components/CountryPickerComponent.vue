@@ -1,6 +1,4 @@
 <template>
-
-
 <div
     class="multiselect"
     @click="handleClick"
@@ -44,6 +42,7 @@
         @click="handleOptionClick(i)"
     >
       <div class="multiselect__checkbox"></div>
+      <img :src="option.flags.svg" class="flag">
       <div class="multiselect__text" >
         {{ option.name.common }}
       </div>
@@ -65,17 +64,11 @@ export default {
   },
   computed: {
     formattedOptions() {
-      let fo = this.options.map((option) => {
-
-        //TODO: denne må sjekke alle  - den setter bare første element som true
+      let formattedOptions = this.options.map((option) => {
         let checkedCountries = this.modelValue.some(v => v === option.name.common);
-
-        console.log(checkedCountries, option)
-
         return {...option, checked: checkedCountries};
       });
-      console.log(fo)
-      return fo;
+      return formattedOptions;
     }
   },
   methods: {
@@ -93,24 +86,20 @@ export default {
 
       let newValue = [...this.modelValue];
 
-      let existIndex = this.modelValue.findIndex(v => v === allValues);
+      let existIndex = this.modelValue.findIndex(v => v === allValues[i]);
 
       if (existIndex === -1) {
-        newValue.push(allValues)
-        console.log(newValue)
+        newValue.push(allValues, clickedRegion)
       } else {
         newValue.splice(existIndex, 1)
       }
-      this.$emit("update:modelValue", newValue[i])
+      this.$emit("update:modelValue", newValue[i] )
 
     },
 
     handleOptionClick(i) {
       let clickedValue = this.options[i].name.common;
       let newValue = [...this.modelValue];
-
-      console.log(newValue)
-
       let existIndex = this.modelValue.findIndex( v => v === clickedValue);
 
       //if the country does not exist in the list with selected countries
@@ -139,17 +128,8 @@ export default {
       type: String,
       default: "Click to select"
     },
-    displayProperty: {
-      type: String,
-      default: "name"
-    },
-    valueProperty: {
-      type: String,
-      default: "value",
-    },
   },
   emits: ['update:modelValue'],
-
 
 }
 </script>

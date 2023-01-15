@@ -5,7 +5,7 @@ import {All_COUNTRIES_URL, COUNTRIES_BY_REGION_URL} from "@/service/urls"
 export async function getAllCountries() {
     await axios
         .get(All_COUNTRIES_URL)
-        .then(response => (this.countries = response.data))
+        .then(response => (this.all_countries = response.data))
 }
 
 
